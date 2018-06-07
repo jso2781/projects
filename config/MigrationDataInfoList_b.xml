@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<MigrationDataInfoList>
+<MigrationDataInfo>
+<AsIsTableName>TB_CM_CUSTOMER</AsIsTableName>
+<AsIsWhereClause>company_cd = 'AAPC' and cust_tp = '1'</AsIsWhereClause>
+<ToBeTableName>TB_CM_CUSTOMER</ToBeTableName>
+<ModifyColumnValues>company_cd='POSAM'</ModifyColumnValues>
+</MigrationDataInfo>
+<MigrationDataInfo>
+<AsIsTableName>TB_CM_SHIPMENT</AsIsTableName>
+<AsIsWhereClause>company_cd = 'AAPC'</AsIsWhereClause>
+<ToBeTableName>TB_CM_SHIPMENT</ToBeTableName>
+<ModifyColumnValues>company_cd='POSAM'</ModifyColumnValues>
+</MigrationDataInfo>
+<MigrationDataInfo>
+<AsIsTableName>TB_SO_MAKER_PLAN_INFO</AsIsTableName>
+<AsIsWhereClause>company_cd = 'AAPC' and SHIP_DATE >='20171101</AsIsWhereClause>
+<ToBeTableName>TB_SO_MAKER_PLAN_INFO</ToBeTableName>
+<ModifyColumnValues>company_cd='POSAM'</ModifyColumnValues>
+</MigrationDataInfo>
+</MigrationDataInfoList>

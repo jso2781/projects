@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.MigrationMapper">
+<select id="selectAsIsTableDataList" parameterType="selectParams" resultType="map">
+SELECT
+    *
+FROM ${asIsTableName}
+WHERE 
+${whereClause}
+</select>
+
+<select id="selectTableColumnList" parameterType="selectParams" resultType="map">
+SELECT
+     A.TABLE_NAME
+    ,A.COLUMN_ID
+    ,A.COLUMN_NAME
+    ,DECODE(NULLABLE,'N','Not Null') NULLABLE
+    ,DATA_TYPE
+FROM ALL_TAB_COLUMNS A
+    ,ALL_COL_COMMENTS B
+WHERE A.TABLE_NAME = #{tableName}
+AND A.TABLE_NAME = B.TABLE_NAME
+AND A.COLUMN_NAME= B.COLUMN_NAME
+AND A.OWNER = B.OWNER
+ORDER BY A.TABLE_NAME,A.COLUMN_ID
+</select>
+
+<insert id="insertToBeTable" parameterType="map" >
+INSERT INTO ${toBeTableName}(${insertColumnNameList}) 
+VALUES(${insertColumnValueList})
+</insert>
+
+<insert id="insertToBeTableBatch" parameterType="map" >
+INSERT INTO ${toBeTableName}(${insertColumnNameList})
+<foreach separator=" UNION ALL " item="item" collection="insertColumnValueList">
+SELECT ${item}
+FROM DUAL
+</foreach>
+</insert>
+
+<insert id="insertToBeTableBatch2" parameterType="map" >
+<foreach item="item" collection="insertColumnValueList" separator=" , ">
+INSERT INTO ${toBeTableName}(${insertColumnNameList}) 
+VALUES 
+(
+${item}
+)
+</foreach>
+</insert>
+
+</mapper>
